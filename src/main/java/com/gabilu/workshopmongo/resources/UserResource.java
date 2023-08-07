@@ -1,5 +1,6 @@
 package com.gabilu.workshopmongo.resources;
 
+import com.gabilu.workshopmongo.domain.Post;
 import com.gabilu.workshopmongo.domain.User;
 import com.gabilu.workshopmongo.dto.UserDTO;
 import com.gabilu.workshopmongo.services.UserService;
@@ -51,5 +52,11 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
